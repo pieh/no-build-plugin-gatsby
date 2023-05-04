@@ -68,3 +68,7 @@ yarn-error.log
 # Yarn Integrity file
 .yarn-integrity
 netlify.toml
+_netlify.toml
+
+# Local Netlify folder
+.netlify
