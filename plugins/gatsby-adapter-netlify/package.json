@@ -1,1 +1,20 @@
-{}
+{
+  "scripts": {
+    "build": "tsc",
+    "clean": "tsc --build --clean",
+    "prepare": "cross-env NODE_ENV=production npm run build",
+    "prepublishOnly": "npm run prepare",
+    "format": "npm run format:code && npm run format:other",
+    "format:code": "npm run lint -- --fix",
+    "format:other": "npm run prettier -- --write",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "prettier": "prettier \"**/*.{md,css,scss,yaml,yml}\"",
+    "test": "run-s test:jest lint",
+    "test:jest": "jest",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "typescript": "^4.5.2"
+  }
+}
