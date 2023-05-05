@@ -14,9 +14,7 @@ const constants_1 = require("./constants");
 const create_redirects_1 = __importDefault(require("./create-redirects"));
 const plugin_data_1 = __importDefault(require("./plugin-data"));
 const glue_1 = require("./glue");
-const CACHE_DIR = process.env.NETLIFY
-    ? `/opt/buildhome/cache`
-    : `.netlify/cache`;
+const CACHE_DIR = process.env.NETLIFY ? `/opt/build/cache` : `.netlify/cache`;
 async function getCacheUtils() {
     return (await import("@netlify/cache-utils")).bindOpts({
         cacheDir: CACHE_DIR,
