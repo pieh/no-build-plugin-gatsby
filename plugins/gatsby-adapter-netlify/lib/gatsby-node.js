@@ -14,12 +14,15 @@ const constants_1 = require("./constants");
 const create_redirects_1 = __importDefault(require("./create-redirects"));
 const plugin_data_1 = __importDefault(require("./plugin-data"));
 const glue_1 = require("./glue");
-const CACHE_DIR = `.netlify/cache`;
+const CACHE_DIR = process.env.NETLIFY
+    ? `/opt/buildhome/cache`
+    : `.netlify/cache`;
 async function getCacheUtils() {
     return (await import("@netlify/cache-utils")).bindOpts({
         cacheDir: CACHE_DIR,
     });
 }
+console.log({ NETLIFY: process.env.NETLIFY, CACHE_DIR });
 // const cacheUtils = cacheBindOpts({ cacheDir: CACHE_DIR });
 const assetsManifest = {};
 /** @type {import("gatsby").GatsbyNode["pluginOptionsSchema"]} */

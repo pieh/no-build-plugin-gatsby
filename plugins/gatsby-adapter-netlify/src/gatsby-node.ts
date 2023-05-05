@@ -16,13 +16,17 @@ import createRedirects from "./create-redirects";
 import makePluginData from "./plugin-data";
 import { handleFunctions } from "./glue";
 
-const CACHE_DIR = `.netlify/cache`;
+const CACHE_DIR = process.env.NETLIFY
+  ? `/opt/buildhome/cache`
+  : `.netlify/cache`;
 
 async function getCacheUtils() {
   return (await import("@netlify/cache-utils")).bindOpts({
     cacheDir: CACHE_DIR,
   });
 }
+
+console.log({ NETLIFY: process.env.NETLIFY, CACHE_DIR });
 
 // const cacheUtils = cacheBindOpts({ cacheDir: CACHE_DIR });
 
