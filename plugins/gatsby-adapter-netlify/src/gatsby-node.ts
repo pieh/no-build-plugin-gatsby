@@ -4,7 +4,6 @@ import { join } from "path";
 import { writeJson, remove, readJSON } from "fs-extra";
 import { generatePageDataPath } from "gatsby-core-utils";
 import WebpackAssetsManifest from "webpack-assets-manifest";
-import { bindOpts as cacheBindOpts } from "@netlify/cache-utils";
 
 import buildHeadersProgram from "./build-headers-program";
 import {
@@ -23,10 +22,6 @@ async function getCacheUtils() {
     cacheDir: CACHE_DIR,
   });
 }
-
-console.log({ NETLIFY: process.env.NETLIFY, CACHE_DIR });
-
-// const cacheUtils = cacheBindOpts({ cacheDir: CACHE_DIR });
 
 const assetsManifest = {};
 /** @type {import("gatsby").GatsbyNode["pluginOptionsSchema"]} */
@@ -66,25 +61,46 @@ export const pluginOptionsSchema = ({ Joi }: any) => {
   });
 };
 
-// Inject a webpack plugin to get the file manifests so we can translate all link headers
-/** @type {import("gatsby").GatsbyNode["onCreateWebpackConfig"]} */
+/** @type {import("gatsby").GatsbyNode["onPreInit"]} */
 export const onPreInit = async ({ store }) => {
-  const { program } = store.getState();
+  const state = store.getState();
 
   await (
     await getCacheUtils()
   ).restore([
-    join(program.directory, `.cache`),
-    join(program.directory, `public`),
+    join(state.program.directory, `.cache`),
+    join(state.program.directory, `public`),
   ]);
 
-  try {
-    const content = await readJSON(
-      join(program.directory, `.cache`, `test.json`)
-    );
-    console.log(`afterRestore success`, content);
-  } catch (e) {
-    console.log(`afterRestore fail`, e);
+  // hacks ... (just kidding - hacks started long ago, but this is especially hacky)
+  const { readState } = require(`gatsby/dist/redux`);
+
+  const cachedState = readState();
+
+  if (Object.keys(cachedState).length > 0) {
+    console.log("restoring state");
+    for (const [key, value] of Object.entries(cachedState)) {
+      console.log(`restoring "${key}"`);
+      // stack of hacks - we want to reuse substate for each reducer and mutate it
+      // so it sticks. We can't just set new object because redux track state per reducer
+      // and combine it creating new state object each time
+      if (typeof value !== `object`) {
+        console.log(`oh oh, not an object`, { key, type: typeof value });
+        continue;
+      }
+
+      // clear out existing keys
+      for (const k of Object.keys(state[key])) {
+        delete state[key][k];
+      }
+      // inject new keys
+      for (const [k, v] of Object.entries(value)) {
+        state[key][k] = v;
+      }
+    }
+    console.log("restored state");
+  } else {
+    console.log("no state to restore");
   }
 };
 
@@ -173,6 +189,15 @@ export const onPostBuild = async (
   await writeJson(join(program.directory, `.cache`, `test.json`), {
     foo: "bar",
   });
+
+  console.log(`[NETLIFY] save stuff`);
+  // console.log(`[NETLIFY] status`, store.getState().status);
+  // import * as db from "../redux/save-state";
+  const { saveState } = require(`gatsby/dist/redux/save-state`);
+
+  console.time(`extra save start`);
+  await saveState();
+  console.timeEnd(`extra save start`);
 
   await Promise.all([
     // generateSkipFile,
