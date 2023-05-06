@@ -24,7 +24,7 @@ export async function handleFunctions(
   neededFunctionsObj: NeededFunctionsObj
 ): Promise<void> {
   const PUBLISH_DIR = "public";
-  const cacheDir = "/Users/misiek/test/no-build-plugin-gatsby/.cache";
+  const cacheDir = ".cache";
 
   const constants = {
     PUBLISH_DIR,

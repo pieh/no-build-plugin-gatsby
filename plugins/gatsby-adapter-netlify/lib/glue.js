@@ -6,7 +6,7 @@ const config_1 = require("./helpers/config");
 const files_1 = require("./helpers/files");
 async function handleFunctions(neededFunctionsObj) {
     const PUBLISH_DIR = "public";
-    const cacheDir = "/Users/misiek/test/no-build-plugin-gatsby/.cache";
+    const cacheDir = ".cache";
     const constants = {
         PUBLISH_DIR,
         INTERNAL_FUNCTIONS_SRC: ".netlify/functions-internal",
