@@ -3,7 +3,7 @@ command = "npm run build"
 publish = "public/"
 
 [[plugins]]
-package = "./netlify-plugin-debug"
+package = "./netlify-plugin-debug-functions"
 
 [[plugins]]
 package = "netlify-plugin-debug-cache"
