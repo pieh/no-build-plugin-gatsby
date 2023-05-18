@@ -50,39 +50,43 @@ const pluginOptionsSchema = ({ Joi }) => {
 exports.pluginOptionsSchema = pluginOptionsSchema;
 /** @type {import("gatsby").GatsbyNode["onPreInit"]} */
 const onPreInit = async ({ store }) => {
+    console.log(`process.env.CI="${process.env.CI}"`);
     const state = store.getState();
+    // global.startBreakPoint = true;
     await (await getCacheUtils()).restore([
         (0, path_1.join)(state.program.directory, `.cache`),
         (0, path_1.join)(state.program.directory, `public`),
     ]);
     // hacks ... (just kidding - hacks started long ago, but this is especially hacky)
-    const { readState } = require(`gatsby/dist/redux`);
-    const cachedState = readState();
-    if (Object.keys(cachedState).length > 0) {
-        console.log("restoring state");
-        for (const [key, value] of Object.entries(cachedState)) {
-            console.log(`restoring "${key}"`);
-            // stack of hacks - we want to reuse substate for each reducer and mutate it
-            // so it sticks. We can't just set new object because redux track state per reducer
-            // and combine it creating new state object each time
-            if (typeof value !== `object`) {
-                console.log(`oh oh, not an object`, { key, type: typeof value });
-                continue;
-            }
-            // clear out existing keys
-            for (const k of Object.keys(state[key])) {
-                delete state[key][k];
-            }
-            // inject new keys
-            for (const [k, v] of Object.entries(value)) {
-                state[key][k] = v;
-            }
-        }
-        console.log("restored state");
-    }
-    else {
-        console.log("no state to restore");
-    }
+    // const { readState } = require(`gatsby/dist/redux`);
+    // const cachedState = readState();
+    // if (Object.keys(cachedState).length > 0) {
+    //   console.log(
+    //     "restoring state",
+    //     require(`util`).inspect(
+    //       { mem: state.html, cached: cachedState.html },
+    //       { depth: Infinity, colors: true }
+    //     )
+    //   );
+    //   console.log(
+    //     "restored state 1",
+    //     require(`util`).inspect(store.getState().html, {
+    //       depth: Infinity,
+    //       colors: true,
+    //     })
+    //   );
+    //   store.dispatch({ type: `RESTORE_CACHE`, payload: cachedState });
+    //   console.log(
+    //     "restored state 2",
+    //     require(`util`).inspect(store.getState().html, {
+    //       depth: Infinity,
+    //       colors: true,
+    //     })
+    //   );
+    // } else {
+    //   console.log("no state to restore");
+    // }
+    // global.startBreakPoint = false;
 };
 exports.onPreInit = onPreInit;
 const onCreateWebpackConfig = ({ actions, stage }) => {
