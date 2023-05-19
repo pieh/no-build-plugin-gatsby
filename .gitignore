@@ -72,3 +72,4 @@ _netlify.toml
 
 # Local Netlify folder
 .netlify
+buildChangeSet-*
