@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Layout } from "../../../components/layout";
 
-export default function SSR({ serverData }) {
+export default function SSR({ serverData, params }) {
   return (
     <Layout>
-      Hello SSR!<pre>{JSON.stringify(serverData, null, 2)}</pre>
+      Hello SSR!<pre>{JSON.stringify({ params, serverData }, null, 2)}</pre>
     </Layout>
   );
 }
