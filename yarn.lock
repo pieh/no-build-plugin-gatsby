@@ -7568,9 +7568,9 @@ fuzzy@^0.1.3:
   resolved "https://registry.yarnpkg.com/fuzzy/-/fuzzy-0.1.3.tgz#4c76ec2ff0ac1a36a9dccf9a00df8623078d4ed8"
   integrity sha512-/gZffu4ykarLrCiP3Ygsa86UAo1E5vEVlvTrpkKywXSbP9Xhln3oSp9QSV57gEq3JFFpGJ4GZ+5zdEp3FcUh4w==
 
-gatsby-adapter-netlify@./gatsby-adapter-netlify-1.0.0-adapters.1.tgz:
-  version "1.0.0-adapters.1"
-  resolved "./gatsby-adapter-netlify-1.0.0-adapters.1.tgz#81871c3b6aa5b9f43628ca5b55354880cf6d651f"
+gatsby-adapter-netlify@./gatsby-adapter-netlify-1.0.0-adapters.2.tgz:
+  version "1.0.0-adapters.2"
+  resolved "./gatsby-adapter-netlify-1.0.0-adapters.2.tgz#dc7eb35d1e2b9121a2d7413352541021b47f0585"
   dependencies:
     "@babel/runtime" "^7.20.13"
     "@netlify/cache-utils" "^5.1.5"
