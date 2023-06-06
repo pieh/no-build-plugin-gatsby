@@ -51,6 +51,7 @@ typings/
 
 # Output of 'npm pack'
 *.tgz
+!gatsby-*.tgz
 
 # dotenv environment variable files
 .env*
