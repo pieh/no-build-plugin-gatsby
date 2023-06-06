@@ -14,9 +14,10 @@ import {
 import createRedirects from "./create-redirects";
 import makePluginData from "./plugin-data";
 import { handleFunctions } from "./glue";
-
+// import { bindOpts } from "@netlify/cache-utils";
 const CACHE_DIR = process.env.NETLIFY ? `/opt/build/cache` : `.netlify/cache`;
 
+// bindOpts();
 async function getCacheUtils() {
   return (await import("@netlify/cache-utils")).bindOpts({
     cacheDir: CACHE_DIR,
@@ -131,6 +132,10 @@ export const onPostBuild = async (
   { store, pathPrefix, reporter }: any,
   userPluginOptions: any
 ) => {
+  // require(`fs-extra`).outputJSONSync();
+
+  writeJson(`./manifest.json`, assetsManifest);
+
   const pluginData = makePluginData(store, assetsManifest, pathPrefix);
   const pluginOptions = { ...DEFAULT_OPTIONS, ...userPluginOptions };
 

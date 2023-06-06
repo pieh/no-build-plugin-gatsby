@@ -9,10 +9,11 @@ export default function SSR({ serverData, params }) {
   );
 }
 
-export function getServerData() {
+export function getServerData({ params }) {
   return {
     props: {
       ssr: true,
+      params,
     },
   };
 }

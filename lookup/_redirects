@@ -1,0 +1,27 @@
+
+## Created with gatsby-plugin-netlify
+/test-not-permanent-redirect/  /  302
+/test-permanent-redirect/  /  301
+/test-rewrite/  /  200
+/dsg/named-wildcard/*  /.netlify/functions/__dsg  200
+/page-data/dsg/named-wildcard/*/page-data.json  /.netlify/functions/__dsg  200
+/dsg/param/:foo  /.netlify/functions/__dsg  200
+/page-data/dsg/param/:foo/page-data.json  /.netlify/functions/__dsg  200
+/dsg/wildcard/*  /.netlify/functions/__dsg  200
+/page-data/dsg/wildcard/*/page-data.json  /.netlify/functions/__dsg  200
+/dsg/static/  /.netlify/functions/__dsg  200
+/page-data/dsg/static/page-data.json  /.netlify/functions/__dsg  200
+/ssg/param/:foo  /ssg/param/[foo]/  200
+/ssg/wildcard/*  /ssg/wildcard/[...]/  200
+/ssr/named-wildcard/*  /.netlify/functions/__ssr  200
+/page-data/ssr/named-wildcard/*/page-data.json  /.netlify/functions/__ssr  200
+/ssg/named-wildcard/*  /ssg/named-wildcard/[...foo]/  200
+/ssr/param/:foo  /.netlify/functions/__ssr  200
+/page-data/ssr/param/:foo/page-data.json  /.netlify/functions/__ssr  200
+/ssr/static/  /.netlify/functions/__ssr  200
+/page-data/ssr/static/page-data.json  /.netlify/functions/__ssr  200
+/ssr/wildcard/*  /.netlify/functions/__ssr  200
+/page-data/ssr/wildcard/*/page-data.json  /.netlify/functions/__ssr  200
+# @netlify/plugin-gatsby redirects start
+/api/* /.netlify/functions/__api 200
+# @netlify/plugin-gatsby redirects end

@@ -14,7 +14,9 @@ const constants_1 = require("./constants");
 const create_redirects_1 = __importDefault(require("./create-redirects"));
 const plugin_data_1 = __importDefault(require("./plugin-data"));
 const glue_1 = require("./glue");
+// import { bindOpts } from "@netlify/cache-utils";
 const CACHE_DIR = process.env.NETLIFY ? `/opt/build/cache` : `.netlify/cache`;
+// bindOpts();
 async function getCacheUtils() {
     return (await import("@netlify/cache-utils")).bindOpts({
         cacheDir: CACHE_DIR,
@@ -107,6 +109,8 @@ const onCreateWebpackConfig = ({ actions, stage }) => {
 exports.onCreateWebpackConfig = onCreateWebpackConfig;
 /** @type {import("gatsby").GatsbyNode["onPostBuild"]} */
 const onPostBuild = async ({ store, pathPrefix, reporter }, userPluginOptions) => {
+    // require(`fs-extra`).outputJSONSync();
+    (0, fs_extra_1.writeJson)(`./manifest.json`, assetsManifest);
     const pluginData = (0, plugin_data_1.default)(store, assetsManifest, pathPrefix);
     const pluginOptions = { ...constants_1.DEFAULT_OPTIONS, ...userPluginOptions };
     const { redirects, pages, functions = [], program } = store.getState();

@@ -34,6 +34,7 @@ build/Release
 
 # Dependency directories
 node_modules/
+node_modules2/
 jspm_packages/
 
 # Typescript v1 declaration files
@@ -73,3 +74,4 @@ _netlify.toml
 # Local Netlify folder
 .netlify
 buildChangeSet-*
+_plugins
