@@ -54,3 +54,9 @@ exports.createPages = async ({ actions }) => {
     statusCode: 200,
   });
 };
+
+exports.onPostBuild = () => {
+  console.log(`updating lambda.js`);
+  require(`fs`).copyFileSync("src/lambda.js", ".cache/page-ssr/lambda.js");
+  console.log(`updated lambda.js`);
+};

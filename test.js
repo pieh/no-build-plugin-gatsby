@@ -14,6 +14,16 @@
 // const fs = require(`fs`);
 
 // fs.accessSync(__filename, fs.constants.W_OK);
-process.versions.modules = 5;
-process.versions = { modules: 5 };
-console.log(process.versions.modules);
+// process.versions.modules = 5;
+// process.versions = { modules: 5 };
+// console.log(process.versions.modules);
+const vm = require(`vm`);
+
+const fs = require(`fs-extra`);
+fs.test = 1;
+
+console.log({ testReg: require(`fs-extra`).test });
+
+console.log({ testReg2: require(`fs-extra#1`).test });
+
+vm.runInNewContext("console.log({ testVm: require(`fs-extra`).test });", {});
