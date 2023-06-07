@@ -1,47 +1,28 @@
 "use strict";
 
-var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 exports.__esModule = true;
 exports.default = void 0;
 var path = _interopRequireWildcard(require("path"));
 var fs = _interopRequireWildcard(require("fs-extra"));
 var _os = require("os");
 var _linkfs = require("linkfs");
-var _directoryTree = _interopRequireDefault(require("directory-tree"));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-// @ts-ignore added by test site
-
 function setupFsWrapper() {
   // setup global._fsWrapper
   try {
-    throw new Error(`wat - forcing read-only 3`);
     fs.accessSync(__filename, fs.constants.W_OK);
-    console.log(`have write access`);
+    // TODO: this seems funky - not sure if this is correct way to handle this, so just marking TODO to revisit this
     return path.join(__dirname, `..`, `data`, `datastore`);
   } catch (e) {
-    console.error(`no write access`, e);
+    // we are in a read-only filesystem, so we need to use a temp dir
+
     const TEMP_CACHE_DIR = path.join((0, _os.tmpdir)(), `gatsby`, `.cache`);
 
     // TODO: don't hardcode this
-    // const cacheDir = process.env.NETLIFY
-    //   ? `/var/task/.cache`
-    //   : `/Users/misiek/test/no-build-plugin-gatsby/.cache`
     const cacheDir = `/var/task/.cache`;
-    // we need to rewrite fs
 
-    try {
-      console.log(`from1`, require(`util`).inspect((0, _directoryTree.default)(cacheDir), {
-        depth: Infinity,
-        colors: true
-      }));
-      console.log(`to1`, require(`util`).inspect((0, _directoryTree.default)(TEMP_CACHE_DIR), {
-        depth: Infinity,
-        colors: true
-      }));
-    } catch (e) {
-      console.error(`error1`, e);
-    }
+    // we need to rewrite fs
     const rewrites = [[path.join(cacheDir, `caches`), path.join(TEMP_CACHE_DIR, `caches`)], [path.join(cacheDir, `caches-lmdb`), path.join(TEMP_CACHE_DIR, `caches-lmdb`)], [path.join(cacheDir, `data`), path.join(TEMP_CACHE_DIR, `data`)]];
     console.log(`Preparing Gatsby filesystem`, {
       from: cacheDir,
@@ -75,23 +56,6 @@ function setupFsWrapper() {
     console.log(`Start copying ${dir}`);
     fs.copySync(path.join(cacheDir, dir), path.join(TEMP_CACHE_DIR, dir));
     console.log(`End copying ${dir}`);
-    const orig = lfs.mkdirSync;
-    lfs.mkdirSync = (...args) => {
-      console.log(`mkdirSync stuff`, args);
-      return orig.apply(lfs, args);
-    };
-    try {
-      console.log(`from2`, require(`util`).inspect((0, _directoryTree.default)(cacheDir), {
-        depth: Infinity,
-        colors: true
-      }));
-      console.log(`to2`, require(`util`).inspect((0, _directoryTree.default)(TEMP_CACHE_DIR), {
-        depth: Infinity,
-        colors: true
-      }));
-    } catch (e) {
-      console.error(`error2`, e);
-    }
     return dbPath;
   }
 }
