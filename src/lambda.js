@@ -18,6 +18,7 @@ function setupFsWrapper() {
     throw new Error(`wat - forcing read-only`);
     fs.accessSync(__filename, fs.constants.W_OK);
     console.log(`have write access`);
+    return path.join(__dirname, `..`, `data`, `datastore`);
   } catch (e) {
     console.error(`no write access`, e);
     const TEMP_CACHE_DIR = path.join((0, _os.tmpdir)(), `gatsby`, `.cache`);
@@ -56,6 +57,7 @@ function setupFsWrapper() {
         lfs[key].native = fs[key].native;
       }
     }
+    const dbPath = path.join(TEMP_CACHE_DIR, `data`, `datastore`);
 
     // 'promises' is not initially linked within the 'linkfs'
     // package, and is needed by underlying Gatsby code (the
@@ -92,7 +94,7 @@ function setupFsWrapper() {
     global._fsWrapper = lfs;
   }
 }
-setupFsWrapper();
+const dbPath = setupFsWrapper();
 
 // using require instead of import here for now because of type hell + import path doesn't exist in current context
 // as this file will be copied elsewhere
@@ -106,7 +108,7 @@ const {
   renderHTML
 } = require(`./index`);
 const graphqlEngine = new GraphQLEngine({
-  dbPath: path.join(__dirname, `..`, `data`, `datastore`)
+  dbPath
 });
 function reverseFixedPagePath(pageDataRequestPath) {
   return pageDataRequestPath === `index` ? `/` : pageDataRequestPath;
