@@ -15,7 +15,7 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 function setupFsWrapper() {
   // setup global._fsWrapper
   try {
-    throw new Error(`wat - forcing read-only`);
+    throw new Error(`wat - forcing read-only 3`);
     fs.accessSync(__filename, fs.constants.W_OK);
     console.log(`have write access`);
     return path.join(__dirname, `..`, `data`, `datastore`);
@@ -63,10 +63,14 @@ function setupFsWrapper() {
     // package, and is needed by underlying Gatsby code (the
     // @graphql-tools/code-file-loader)
     lfs.promises = (0, _linkfs.link)(fs.promises, rewrites);
+
+    // Gatsby uses this instead of fs if present
+    // eslint-disable-next-line no-underscore-dangle
+    global._fsWrapper = lfs;
     const dir = `data`;
     if (!process.env.NETLIFY_LOCAL && fs.existsSync(path.join(TEMP_CACHE_DIR, dir))) {
       console.log(`directory already exists`);
-      return;
+      return dbPath;
     }
     console.log(`Start copying ${dir}`);
     fs.copySync(path.join(cacheDir, dir), path.join(TEMP_CACHE_DIR, dir));
@@ -88,10 +92,7 @@ function setupFsWrapper() {
     } catch (e) {
       console.error(`error2`, e);
     }
-
-    // Gatsby uses this instead of fs if present
-    // eslint-disable-next-line no-underscore-dangle
-    global._fsWrapper = lfs;
+    return dbPath;
   }
 }
 const dbPath = setupFsWrapper();
