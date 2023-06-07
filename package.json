@@ -25,7 +25,7 @@
     "download": "^8.0.0",
     "etag": "^1.8.1",
     "fs-extra": "^10.0.0",
-    "gatsby": "./gatsby-5.11.0-adapters.8.tgz",
+    "gatsby": "./gatsby-5.11.0-adapters.9.tgz",
     "gatsby-adapter-netlify": "./gatsby-adapter-netlify-1.0.0-adapters.7.tgz",
     "gatsby-core-utils": "^4.0.0",
     "kebab-hash": "^0.1.2",
