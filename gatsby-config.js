@@ -11,6 +11,10 @@
 
 process.env.GATSBY_FORCE_LMDB_BINARY_LOCATION = `../../@lmdb/lmdb-${process.platform}-${process.arch}/node.abi83.glibc.node`;
 
+console.log(`AWS_LAMBDA_JS_RUNTIME`, {
+  AWS_LAMBDA_JS_RUNTIME: process.env.AWS_LAMBDA_JS_RUNTIME,
+});
+
 module.exports = {
   plugins: [
     // `gatsby-plugin-netlify-all-in-one`
