@@ -9,7 +9,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 
-process.env.GATSBY_FORCE_LMDB_BINARY_LOCATION = `../../@lmdb/lmdb-linux-x64/node.abi83.glibc.node`;
+process.env.GATSBY_FORCE_LMDB_BINARY_LOCATION = `../../@lmdb/lmdb-${process.platform}-${process.arch}/node.abi83.glibc.node`;
 
 module.exports = {
   plugins: [
