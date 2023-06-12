@@ -1,3 +1,3 @@
 export default function (req, res) {
-  res.send(`hello`);
+  res.send({ msg: `hello`, params: req.params });
 }
