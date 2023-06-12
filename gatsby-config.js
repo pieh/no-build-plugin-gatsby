@@ -20,6 +20,7 @@ module.exports = {
     // `gatsby-plugin-netlify-all-in-one`
   ],
   pathPrefix: `/test`,
+  assetPrefix: `https://cdn.example.com/test`,
 
   // adapter: createSomeAdapter({
   //   lmdbOnCDN: false
