@@ -104,10 +104,10 @@ function setStatusAndHeaders({
     if (data.serverDataStatus) {
       res.status(data.serverDataStatus);
     }
-    if (data.serverDataHeaders) {
-      for (const [name, value] of Object.entries(data.serverDataHeaders)) {
-        res.setHeader(name, value);
-      }
+  }
+  if (data.serverDataHeaders) {
+    for (const [name, value] of Object.entries(data.serverDataHeaders)) {
+      res.setHeader(name, value);
     }
   }
 }

@@ -11,11 +11,15 @@
 
 process.env.GATSBY_FORCE_LMDB_BINARY_LOCATION = `../../@lmdb/lmdb-${process.platform}-${process.arch}/node.abi83.glibc.node`;
 
-console.log(`AWS_LAMBDA_JS_RUNTIME`, {
-  AWS_LAMBDA_JS_RUNTIME: process.env.AWS_LAMBDA_JS_RUNTIME,
-});
+// console.log(`AWS_LAMBDA_JS_RUNTIME`, {
+//   AWS_LAMBDA_JS_RUNTIME: process.env.AWS_LAMBDA_JS_RUNTIME,
+// });
 
 module.exports = {
+  siteMetadata: {
+    title: `hello`,
+    description: `world`,
+  },
   plugins: [
     // `gatsby-plugin-netlify-all-in-one`
   ],
@@ -27,17 +31,37 @@ module.exports = {
   // })
 
   // trailingSlash: true,
-  // headers: [
-  //   {
-  //     source: `/*`,
-  //     mergeCacheHeaders: false,
-  //     headers: [
-  //       "Basic-Auth: someuser:somepassword anotheruser:anotherpassword",
-  //       {
-  //         key: "x-custom-header",
-  //         value: "my custom header value",
-  //       },
-  //     ],
-  //   },
-  // ],
+  headers: [
+    {
+      source: `/*`,
+      headers: [
+        {
+          key: "x-custom-header",
+          value: "my custom header value",
+        },
+      ],
+    },
+    {
+      source: `/ssr/*`,
+      headers: [
+        {
+          key: "x-ssr-header",
+          value: "my custom header value from config",
+        },
+        {
+          key: "x-ssr-header-overwrite",
+          value: "my custom header value from config",
+        },
+      ],
+    },
+    {
+      source: `/dsg/*`,
+      headers: [
+        {
+          key: "x-dsg-header",
+          value: "my custom header value",
+        },
+      ],
+    },
+  ],
 };
