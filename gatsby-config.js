@@ -9,7 +9,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 
-process.env.GATSBY_FORCE_LMDB_BINARY_LOCATION = `../../@lmdb/lmdb-${process.platform}-${process.arch}/node.abi83.glibc.node`;
+const adapter = require(`gatsby-adapter-netlify`).default;
 
 // console.log(`AWS_LAMBDA_JS_RUNTIME`, {
 //   AWS_LAMBDA_JS_RUNTIME: process.env.AWS_LAMBDA_JS_RUNTIME,
@@ -23,6 +23,10 @@ module.exports = {
   plugins: [
     // `gatsby-plugin-netlify-all-in-one`
   ],
+  // deploy: {
+  //   shouldUploadLMDBtoCDN: true,
+  // },
+  adapter: adapter({ excludeDatastoreFromEngineFunction: true }),
   // pathPrefix: `/test`,
   // assetPrefix: `https://cdn.example.com/test`,
 
