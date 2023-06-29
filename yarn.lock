@@ -5202,9 +5202,9 @@ gatsby-worker@^2.12.0-next.0:
     fs-extra "^11.1.1"
     signal-exit "^3.0.7"
 
-gatsby@./gatsby-5.12.0-adapters.14.tgz:
-  version "5.12.0-adapters.14"
-  resolved "./gatsby-5.12.0-adapters.14.tgz#2115f8d11ec3adcc43db5da640f196ae19c3033a"
+gatsby@./gatsby-5.12.0-adapters.15.tgz:
+  version "5.12.0-adapters.15"
+  resolved "./gatsby-5.12.0-adapters.15.tgz#8e32fdf1d94770256ed5963c5514f507b92ca785"
   dependencies:
     "@babel/code-frame" "^7.18.6"
     "@babel/core" "^7.20.12"
