@@ -13,8 +13,8 @@
     "test": "cd plugins/gatsby-adapter-netlify && yarn && yarn build && cd ../.. && yarn clean && rm -rf .netlify && yarn build"
   },
   "dependencies": {
-    "gatsby": "./gatsby-5.12.0-adapters.15.tgz",
-    "gatsby-adapter-netlify": "./gatsby-adapter-netlify-1.0.0-adapters.14.tgz",
+    "gatsby": "^5.10.0-alpha-adapters.130",
+    "gatsby-adapter-netlify": "^1.0.0-alpha-adapters.21602",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
@@ -24,10 +24,5 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
-  },
-  "resolutions": {
-    "gatsby": "./gatsby-5.12.0-adapters.15.tgz",
-    "gatsby-adapter-netlify": "./gatsby-adapter-netlify-1.0.0-adapters.14.tgz",
-    "gatsby-page-utils": "./gatsby-page-utils-3.12.0-adapters.0.tgz"
   }
 }
