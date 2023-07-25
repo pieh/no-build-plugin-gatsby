@@ -9,7 +9,7 @@
  * @type {import('gatsby').GatsbyConfig}
  */
 
-const adapter = require(`gatsby-adapter-netlify`).default;
+// const adapter = require(`gatsby-adapter-netlify`).default;
 
 // console.log(`AWS_LAMBDA_JS_RUNTIME`, {
 //   AWS_LAMBDA_JS_RUNTIME: process.env.AWS_LAMBDA_JS_RUNTIME,
@@ -22,11 +22,21 @@ module.exports = {
   },
   plugins: [
     // `gatsby-plugin-netlify-all-in-one`
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/images`,
+        name: `blog`,
+      },
+    },
   ],
   // deploy: {
   //   shouldUploadLMDBtoCDN: true,
   // },
-  adapter: adapter({ excludeDatastoreFromEngineFunction: true }),
+  // adapter: adapter({ excludeDatastoreFromEngineFunction: true }),
   // pathPrefix: `/test`,
   // assetPrefix: `https://cdn.example.com/test`,
 
@@ -35,6 +45,7 @@ module.exports = {
   // })
 
   // trailingSlash: true,
+  // trailingSlash: "never",
   headers: [
     {
       source: `/*`,

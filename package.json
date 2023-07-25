@@ -13,8 +13,11 @@
     "test": "cd plugins/gatsby-adapter-netlify && yarn && yarn build && cd ../.. && yarn clean && rm -rf .netlify && yarn build"
   },
   "dependencies": {
-    "gatsby": "^5.10.0-alpha-adapters.130",
-    "gatsby-adapter-netlify": "^1.0.0-alpha-adapters.21602",
+    "gatsby": "^5.13.0-next.0",
+    "gatsby-plugin-image": "^3.11.0",
+    "gatsby-plugin-sharp": "^5.11.0",
+    "gatsby-source-filesystem": "^5.11.0",
+    "gatsby-transformer-sharp": "^5.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
