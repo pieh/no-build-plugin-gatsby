@@ -32,6 +32,7 @@ module.exports = {
         name: `blog`,
       },
     },
+    `gatsby-plugin-netlify`,
   ],
   // deploy: {
   //   shouldUploadLMDBtoCDN: true,

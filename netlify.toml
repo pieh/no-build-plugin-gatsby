@@ -7,3 +7,6 @@ publish = "public/"
 
 #[[plugins]]
 #package = "netlify-plugin-debug-cache"
+
+#[[plugins]]
+#package = "@netlify/plugin-gatsby"
