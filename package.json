@@ -13,7 +13,7 @@
     "test": "cd plugins/gatsby-adapter-netlify && yarn && yarn build && cd ../.. && yarn clean && rm -rf .netlify && yarn build"
   },
   "dependencies": {
-    "gatsby": "5.12.1",
+    "gatsby": "^5.12.3",
     "gatsby-plugin-image": "^3.11.0",
     "gatsby-plugin-netlify": "^5.1.0",
     "gatsby-plugin-sharp": "^5.11.0",
