@@ -10,3 +10,8 @@ publish = "public/"
 
 #[[plugins]]
 #package = "@netlify/plugin-gatsby"
+
+[[redirects]]
+from = "/wat"
+to = "/"
+status = 200
