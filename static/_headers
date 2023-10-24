@@ -1,2 +1,8 @@
 /page-data/ssg/param/:foo/page-data.json
   x-forced: true
+
+/page-data/*/page-data.json
+  x-pagedata: true
+
+*.html
+  x-html: true
