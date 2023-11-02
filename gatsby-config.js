@@ -32,7 +32,13 @@ module.exports = {
         name: `blog`,
       },
     },
-    `gatsby-plugin-netlify`,
+    {
+      resolve: `gatsby-secrets-test`,
+      options: {
+        secret: process.env.FRA_90_MY_SECRET,
+      },
+    },
+    // `gatsby-plugin-netlify`,
   ],
   // deploy: {
   //   shouldUploadLMDBtoCDN: true,
